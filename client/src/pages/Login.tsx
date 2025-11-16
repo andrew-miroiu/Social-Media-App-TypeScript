@@ -1,7 +1,7 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { supabase } from "../lib/supabaseClient"
 
-export default function Login() {
+export default function Login( {setLogin} : {setLogin: React.Dispatch<React.SetStateAction<boolean>>} ) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,19 +17,9 @@ export default function Login() {
     if (error) {
       console.error("Google login error:", error)
     }
-  }
 
-  async function handleEmailLogin(e : React.FormEvent) {
-    e.preventDefault();
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-
-    if (error) {
-      console.error("Email login error:", error)
-    }
     
+      console.log("Google login data:", data);
   }
 
   async function handleLogin(e : React.FormEvent) {
@@ -44,6 +34,7 @@ export default function Login() {
     }
     else {
         window.location.reload();
+        console.log("Google login data:", data);
     }
     
   }
@@ -76,6 +67,10 @@ export default function Login() {
 
       <button onClick={handleGoogleLogin}>
         Sign in with Google
+      </button>
+
+      <button onClick={() => setLogin(false)}>
+        <p>Don't have an account? Sign up here.</p>
       </button>
     </div>
   )
