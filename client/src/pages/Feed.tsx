@@ -4,7 +4,7 @@ import Post from "../components/Post";
 
 export default function Feed() {
 
-    const [posts, setPosts] = React.useState<Array<{user_id: string; text: string; image_url?: string}>>([]);
+    const [posts, setPosts] = React.useState<Array<{user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
 
     React.useEffect(() => {
         // Fetch posts from the backend
@@ -29,7 +29,8 @@ export default function Feed() {
                     key={index}
                     userid={post.user_id}
                     content={post.text}
-                    mediaUrl={post.image_url}
+                    image_url={post.image_url}
+                    video_url={post.video_url}
                 />
             ))}
         </div>
