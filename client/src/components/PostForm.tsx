@@ -16,7 +16,7 @@ export default function PostForm() {
     getUser();
   }, []);
 
-  function handleFileChange(e: any) {
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedFile = e.target.files?.[0] || null;
     setFile(selectedFile);
 
@@ -27,7 +27,7 @@ export default function PostForm() {
     }
   }
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     console.log("Submitting post:", { content, file });

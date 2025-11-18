@@ -57,5 +57,20 @@ export async function getAllPostsFromDB() {
     .select("*")
     .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
-  return data;
+
+  const { data: usersData } = await supabase.auth.admin.listUsers();
+  const users = usersData?.users ?? [];
+
+  const postsWithUsernames = data?.map((post: any) => {
+    const user = users.find((u: any) => u.id === post.user_id);
+    return {
+      ...post,
+      username: user?.email ?? user?.user_metadata?.full_name ?? null,
+      avatar_url: user?.user_metadata?.avatar_url ?? null,
+    };
+  }) ?? [];
+
+  console.log(postsWithUsernames);
+
+  return postsWithUsernames;
 }

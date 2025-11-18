@@ -11,7 +11,7 @@ export async function createPost(req: any, res: any) {
 
     if (file) {
       const publicUrl = await uploadFileToSupabase(file);
-
+    
       if (file.mimetype.startsWith("image/")) {
         image_url = publicUrl;
       } else if (file.mimetype.startsWith("video/")) {

@@ -16,6 +16,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [login, setLogin] = useState(true)
   const [page, setPage] = useState("feed")
+  const [profileUserId, setProfileUserId] = useState<string | null>(null)
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -24,21 +25,31 @@ function App() {
     })
   }, [])
 
+
   if (loading) return <p>Loading...</p>
   if (!user) return (
       login ? <Login setLogin = {setLogin}/> : <Signup setLogin = {setLogin}/>
 
 )
 
+function handlePageChange(page: string, userId?: string | null) {
+  if (page === "profile" && userId) {
+    setProfileUserId(userId);
+    console.log("if:" + profileUserId);
+    }
+  setPage(page);
+}
+
   //return <Feed />
   return (
     <div>
-      <Navbar onPageChange={setPage}/>
+      <Navbar onPageChange={handlePageChange} userId={user.id}/>
 
-      {page === "feed" && <Feed />}
+      {page === "feed" && <Feed onOpenProfile={handlePageChange}/>}
       {page === "messages" && <Messages />}
       {page === "search" && <Search />}
-      {page === "profile" && <Profile />}
+      {page === "profile" && <Profile userId={profileUserId} /> }
+
 
       <h1>Welcome, {user.email}</h1>
       <button onClick={async () => {
