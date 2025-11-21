@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 interface ProfileProps {
   userId?: string | null;
@@ -9,6 +9,8 @@ interface LoadedUser {
   email?: string | null;
   username?: string | null;
   full_name?: string | null;
+  followersCount?: string | null;
+  followingCount?: string | null;
 }
 
 export default function Profile({ userId }: ProfileProps) {
@@ -37,6 +39,8 @@ export default function Profile({ userId }: ProfileProps) {
       <p>
         Username: <strong>{loadedUser.full_name || loadedUser.username}</strong>
       </p>
+      <p>Followers: {loadedUser.followersCount}</p>
+      <p>Following: {loadedUser.followersCount}</p>
     </div>
   );
 }

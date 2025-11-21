@@ -70,7 +70,5 @@ export async function getAllPostsFromDB() {
     };
   }) ?? [];
 
-  console.log(postsWithUsernames);
-
   return postsWithUsernames;
 }
