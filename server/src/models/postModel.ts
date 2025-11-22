@@ -72,3 +72,14 @@ export async function getAllPostsFromDB() {
 
   return postsWithUsernames;
 }
+
+export async function getPostsByUsernameDb(user_id : string) {
+  const {data, error} = await supabase
+    .from("posts")
+    .select("*")
+    .eq("user_id", user_id)
+    .order("created_at", { ascending: false });
+
+    if (error) throw new Error(error.message);
+    return data;
+}

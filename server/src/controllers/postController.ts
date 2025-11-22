@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { uploadFileToSupabase, createPostInDB, getAllPostsFromDB } from "../models/postModel";
+import { uploadFileToSupabase, createPostInDB, getAllPostsFromDB, getPostsByUsernameDb } from "../models/postModel";
 
 export async function createPost(req: any, res: any) {
   try {
@@ -40,4 +40,15 @@ export function getPosts(req: Request, res: Response) {
     .catch((error) => {
       res.status(500).json({ error: error?.message ?? String(error) });
     });
+}
+
+export async function getPostsByUser(req: Request, res: Response ) {
+    const user_id = req.params.userId;
+
+    try{
+       const result = await getPostsByUsernameDb(user_id);
+       res.status(200).json({success: true, posts: result});
+    } catch (error: any){
+      res.status(500).json({ error: error?.message ?? String(error) });
+    }
 }

@@ -11,7 +11,7 @@ interface SearchUser {
   following: boolean;
 }
 
-export default function Search({ currentUserId } : {currentUserId: string}) {
+export default function Search({ currentUserId , onOpenProfile} : {currentUserId: string; onOpenProfile: (page: string, userId: string) => void;}) {
     const [users, setUsers] = useState<SearchUser[]>([])
     const [searchedUsername, setSearchedUsername] = useState<string>("")
 
@@ -19,9 +19,7 @@ export default function Search({ currentUserId } : {currentUserId: string}) {
         async function getUsers() {
             const res = await fetch(`http://localhost:5000/users/${currentUserId}`);
             const data = await res.json();
-            console.log("RAW DATA:", data);
             const filtered = data.filter((u: SearchUser) => u.id !== currentUserId);
-            console.log(filtered);
             setUsers(filtered);
 
         }
@@ -56,7 +54,7 @@ export default function Search({ currentUserId } : {currentUserId: string}) {
 
     const handleUnfollow = async (followingId: string) =>{
 
-        const res = await fetch("http://localhost:5000/follow/unfollow", {
+        await fetch("http://localhost:5000/follow/unfollow", {
             method: "DELETE",
             headers: {
             "Content-Type": "application/json",
@@ -74,9 +72,6 @@ export default function Search({ currentUserId } : {currentUserId: string}) {
                 : user
             )
         );
-
-        console.log(res);
-
     }
 
 
@@ -94,7 +89,7 @@ export default function Search({ currentUserId } : {currentUserId: string}) {
                 {filteredUsers.map((user: SearchUser) => (
                 <div className="user" key={user.id} style={{ backgroundColor: "red", gap : "2rem" }}>
                     <p><strong>{user.user_metadata.full_name || "(no name)"}</strong></p>
-                    <p>{user.email}</p>
+                    <p onClick={() => {onOpenProfile("profile", user.id)}} style={{cursor: "pointer"}}>{user.email}</p>
                     <button onClick={() =>
                         user.following
                         ? handleUnfollow(user.id)

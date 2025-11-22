@@ -18,14 +18,14 @@ export async function getUserProfileFromDB(userId: string) {
     if (error) throw new Error(error.message);
 
     const followersCount = followers.length;
-
+    
     const { data: following, error: errorFollowing } = await supabase
       .from('follows')
       .select("*")
       .eq("following_id", userId)
     
     if (errorFollowing) throw new Error(errorFollowing.message);
-
+    
     const followingCount = following.length;
 
     return {

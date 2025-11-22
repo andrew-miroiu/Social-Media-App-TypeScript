@@ -47,8 +47,8 @@ function handlePageChange(page: string, userId?: string | null) {
 
       {page === "feed" && <Feed onOpenProfile={handlePageChange}/>}
       {page === "messages" && <Messages />}
-      {page === "search" && <Search currentUserId={user.id}/>}
-      {page === "profile" && <Profile userId={profileUserId} /> }
+      {page === "search" && <Search currentUserId={user.id} onOpenProfile={handlePageChange}/>}
+      {page === "profile" && <Profile userId={profileUserId} onOpenProfile={handlePageChange}/> }
 
 
       <h1>Welcome, {user.email}</h1>
