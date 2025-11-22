@@ -7,6 +7,7 @@ import postRouter from './routes/postRouter'
 import profileRouter from './routes/profileRouter'
 import userRouter from './routes/userRouter'
 import followRouter from './routes/followRoute'
+import likeRoute from './routes/likeRoute'
 
 const app = express()
 app.use(cors())
@@ -16,6 +17,7 @@ app.use('/posts', postRouter)
 app.use('/profile', profileRouter)
 app.use('/users', userRouter)
 app.use('/follow', followRouter)
+app.use('/like', likeRoute)
 
 app.get('/', (_, res) => res.send(' Server is running'))
 

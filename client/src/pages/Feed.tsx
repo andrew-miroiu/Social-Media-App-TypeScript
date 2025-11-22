@@ -2,9 +2,9 @@ import React from "react";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 
-export default function Feed({onOpenProfile} : {onOpenProfile: (page: string, userId: string) => void;}) {
+export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (page: string, userId: string) => void; currentUserId: string;}) {
 
-    const [posts, setPosts] = React.useState<Array<{username: string; user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
+    const [posts, setPosts] = React.useState<Array<{id: string; username: string; user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
 
     React.useEffect(() => {
         // Fetch posts from the backend
@@ -16,7 +16,6 @@ export default function Feed({onOpenProfile} : {onOpenProfile: (page: string, us
                 }
             })
             .catch((err) => console.error("Error fetching posts:", err));
-            console.log("Posts fetched:", posts);
     }, []);
 
 
@@ -28,11 +27,13 @@ export default function Feed({onOpenProfile} : {onOpenProfile: (page: string, us
             {posts.map((post, index) => (
                 <Post 
                     key={index}
+                    post_id={post.id}
                     username={post.username}
                     user_id={post.user_id}
                     content={post.text}
                     image_url={post.image_url}
                     video_url={post.video_url}
+                    currentUserId = {currentUserId}
                     onOpenProfile={onOpenProfile}
                 />
             ))}

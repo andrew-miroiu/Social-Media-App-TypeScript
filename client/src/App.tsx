@@ -45,10 +45,10 @@ function handlePageChange(page: string, userId?: string | null) {
     <div>
       <Navbar onPageChange={handlePageChange} userId={user.id}/>
 
-      {page === "feed" && <Feed onOpenProfile={handlePageChange}/>}
+      {page === "feed" && <Feed onOpenProfile={handlePageChange} currentUserId={user.id}/>}
       {page === "messages" && <Messages />}
       {page === "search" && <Search currentUserId={user.id} onOpenProfile={handlePageChange}/>}
-      {page === "profile" && <Profile userId={profileUserId} onOpenProfile={handlePageChange}/> }
+      {page === "profile" && <Profile userId={profileUserId} onOpenProfile={handlePageChange} currentUser={user.id}/> }
 
 
       <h1>Welcome, {user.email}</h1>

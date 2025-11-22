@@ -4,6 +4,7 @@ import Post from "../components/Post";
 interface ProfileProps {
   userId?: string | null;
   onOpenProfile: (page: string, userId: string) => void;
+  currentUser: string;
 }
 
 interface LoadedUser {
@@ -16,14 +17,16 @@ interface LoadedUser {
 }
 
 interface ProfilePosts{
+  id:string;
   username?: string;
   user_id: string;
   content?: string;
   image_url?: string;
   video_url?: string;
+  currentUserId: string;
 }
 
-export default function Profile({ userId, onOpenProfile }: ProfileProps) {
+export default function Profile({ userId, onOpenProfile, currentUser }: ProfileProps) {
   const [loadedUser, setLoadedUser] = useState<LoadedUser | null>(null);
   const [profilePosts, setProfilePosts] = useState<ProfilePosts[]>([]);
 
@@ -37,6 +40,7 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
 
       const resPosts = await fetch(`http://localhost:5000/posts/user/${userId}`);
       const dataPosts = await resPosts.json();
+      console.log(dataPosts.posts);
       setProfilePosts(dataPosts.posts);
     }
     loadProfile();
@@ -44,7 +48,7 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
 
 
   if (!loadedUser || !profilePosts) return <p>Loading profile...</p>;
-
+  
   return (
     
     <div>
@@ -61,11 +65,13 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
                   {profilePosts.map((post, index) => (
                     <Post 
                       key={index}
+                      post_id={post.id}
                       username={post.username || ""}
                       user_id={post.user_id}
                       content={post.content || ""}
                       image_url={post.image_url}
                       video_url={post.video_url}
+                      currentUserId={currentUser}
                       onOpenProfile={onOpenProfile}
                     />
                   ))}
