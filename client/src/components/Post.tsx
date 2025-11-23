@@ -54,20 +54,22 @@ export default function Post({post_id, username, user_id, content, image_url, vi
       setNumberOfLikes(prev => (data.liked ? prev + 1 : prev - 1));
   }
 
-  const handleOpeningComments = async () => {
-
-    if(openedCommentSection === "none"){
-      setOpenedCommentSection("block")
-    }
-    else{
-      setOpenedCommentSection("none")
-    }
-
+  const fetchComments = async () => {
     const res = await fetch(`http://localhost:5000/comments/getComments/${post_id}`)
     const data = await res.json();
     setComments(data.comments)
     setNumberOfComments(data.numberOfComments)
+  }
 
+  const handleOpeningComments = async () => {
+
+    if(openedCommentSection === "none"){
+      setOpenedCommentSection("block")
+      await fetchComments();
+    }
+    else{
+      setOpenedCommentSection("none")
+    }
   }
   
   return (
@@ -94,7 +96,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
           </button>
         </div>
           <div className="comments" style={{display: openedCommentSection}}>
-            <CommentForm post_id = {post_id} user_id = {user_id}></CommentForm>
+            <CommentForm post_id = {post_id} user_id = {user_id} refreshComments = {fetchComments}></CommentForm>
             {comments.map((comment) => (
               <p key={comment.id}>
                 {comment.username}: {comment.text}
