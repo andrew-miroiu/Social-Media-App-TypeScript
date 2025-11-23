@@ -96,7 +96,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
           </button>
         </div>
           <div className="comments" style={{display: openedCommentSection}}>
-            <CommentForm post_id = {post_id} user_id = {user_id} refreshComments = {fetchComments}></CommentForm>
+            <CommentForm post_id = {post_id} user_id = {currentUserId} refreshComments = {fetchComments}></CommentForm>
             {comments.map((comment) => (
               <p key={comment.id}>
                 {comment.username}: {comment.text}
