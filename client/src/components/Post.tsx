@@ -16,6 +16,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
   const [liked, setLiked] = useState<boolean>(false)
   const [openedCommentSection, setOpenedCommentSection] = useState<string>("none")
   const [comments, setComments] = useState<Comments[]>([])
+  const [numberOfComments, setNumberOfComments] = useState<number>(0)
 
   useEffect(() => {
   async function loadLikes() {
@@ -65,6 +66,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
     const res = await fetch(`http://localhost:5000/comments/getComments/${post_id}`)
     const data = await res.json();
     setComments(data.comments)
+    setNumberOfComments(data.numberOfComments)
 
   }
   
@@ -83,6 +85,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
       <div className="likes-comments">
         <div className="likes">
           <p>Likes: {numberOfLikes}</p>
+          <p>Comments: {numberOfComments}</p>
           <button onClick={handleLike}>
             {liked ? "Unlike" : "Like"}
           </button>
