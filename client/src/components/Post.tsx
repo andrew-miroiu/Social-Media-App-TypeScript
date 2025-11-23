@@ -1,10 +1,21 @@
 import {useState, useEffect} from "react";
 import CommentForm from "./CommentForm"
 
+interface Comments {
+  id: string;
+  post_id: string;
+  user_id: string;
+  text: string;
+  created_at: string;
+  username: string;
+}
+
 export default function Post({post_id, username, user_id, content, image_url, video_url, currentUserId, onOpenProfile}: {post_id: string; username: string; user_id: string; content: string; image_url?: string; video_url?: string; currentUserId : string; onOpenProfile: (page: string, userId: string) => void;}) {
   
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0)
   const [liked, setLiked] = useState<boolean>(false)
+  const [openedCommentSection, setOpenedCommentSection] = useState<string>("none")
+  const [comments, setComments] = useState<Comments[]>([])
 
   useEffect(() => {
   async function loadLikes() {
@@ -41,6 +52,21 @@ export default function Post({post_id, username, user_id, content, image_url, vi
       setLiked(data.liked);
       setNumberOfLikes(prev => (data.liked ? prev + 1 : prev - 1));
   }
+
+  const handleOpeningComments = async () => {
+
+    if(openedCommentSection === "none"){
+      setOpenedCommentSection("block")
+    }
+    else{
+      setOpenedCommentSection("none")
+    }
+
+    const res = await fetch(`http://localhost:5000/comments/getComments/${post_id}`)
+    const data = await res.json();
+    setComments(data.comments)
+
+  }
   
   return (
     <div>
@@ -60,11 +86,19 @@ export default function Post({post_id, username, user_id, content, image_url, vi
           <button onClick={handleLike}>
             {liked ? "Unlike" : "Like"}
           </button>
-          <button>
-            comment
+          <button onClick={handleOpeningComments}>
+            Comments
           </button>
-          <CommentForm post_id = {post_id} user_id = {user_id}></CommentForm>
         </div>
+          <div className="comments" style={{display: openedCommentSection}}>
+            <CommentForm post_id = {post_id} user_id = {user_id}></CommentForm>
+            {comments.map((comment) => (
+              <p key={comment.id}>
+                {comment.username}: {comment.text}
+              </p>
+            ))}
+          </div>  
+          
       </div>
     </div>
   );

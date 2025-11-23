@@ -26,4 +26,19 @@ export async function getCommentsDb(post_id: string) {
         .eq("post_id", post_id)
             
     if (error) throw new Error(error.message);
+
+    const { data: usersData } = await supabase.auth.admin.listUsers();
+    const users = usersData?.users ?? [];
+    const commentsWithUsername = comments.map((comment) =>{
+        const user = users.find(u => u.id === comment.user_id);
+        return {
+            ...comment,
+            username:
+                user?.user_metadata?.full_name ||
+                user?.user_metadata?.username ||
+                user?.email,
+            };
+        });
+
+        return commentsWithUsername;
 }

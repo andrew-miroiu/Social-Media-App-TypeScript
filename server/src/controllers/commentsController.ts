@@ -26,7 +26,7 @@ export async function getComments(req: Request, res: Response){
         }
 
         const comments = await getCommentsDb(post_id);
-
+        console.log("comments: ", comments)
         res.status(201).json({success: true, comments});
     } catch (error : any){
         res.status(500).json({ error: error?.message ?? String(error) });
