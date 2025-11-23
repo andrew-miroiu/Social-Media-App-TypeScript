@@ -10,9 +10,15 @@ export default function Signup( {setLogin} : {setLogin: React.Dispatch<React.Set
       async function handleSignup(e : React.FormEvent) {
         e.preventDefault();
         const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        })
+          email,
+          password,
+          options: {
+            data: {
+              full_name: full_name, 
+              username: full_name 
+            }
+          }
+        });
 
         if (error) {
         console.error("Email login error:", error)
@@ -25,7 +31,7 @@ export default function Signup( {setLogin} : {setLogin: React.Dispatch<React.Set
         const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-            redirectTo: window.location.origin // după login revine aici
+            redirectTo: window.location.origin
         }
         })
 

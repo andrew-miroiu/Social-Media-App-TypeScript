@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import CommentForm from "./CommentForm"
 
 export default function Post({post_id, username, user_id, content, image_url, video_url, currentUserId, onOpenProfile}: {post_id: string; username: string; user_id: string; content: string; image_url?: string; video_url?: string; currentUserId : string; onOpenProfile: (page: string, userId: string) => void;}) {
   
@@ -59,6 +60,10 @@ export default function Post({post_id, username, user_id, content, image_url, vi
           <button onClick={handleLike}>
             {liked ? "Unlike" : "Like"}
           </button>
+          <button>
+            comment
+          </button>
+          <CommentForm post_id = {post_id} user_id = {user_id}></CommentForm>
         </div>
       </div>
     </div>

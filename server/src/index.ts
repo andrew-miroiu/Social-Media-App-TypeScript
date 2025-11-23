@@ -8,6 +8,7 @@ import profileRouter from './routes/profileRouter'
 import userRouter from './routes/userRouter'
 import followRouter from './routes/followRoute'
 import likeRoute from './routes/likeRoute'
+import commentsRouter from './routes/commentsRouter'
 
 const app = express()
 app.use(cors())
@@ -18,6 +19,7 @@ app.use('/profile', profileRouter)
 app.use('/users', userRouter)
 app.use('/follow', followRouter)
 app.use('/like', likeRoute)
+app.use('/comments', commentsRouter)
 
 app.get('/', (_, res) => res.send(' Server is running'))
 
