@@ -3,6 +3,7 @@ import type { User } from "@supabase/supabase-js"
 
 export default function MessagesUsers({currentUserId} : {currentUserId:string}) {
     const [users, setUsers] = useState<User[]>([])
+    //const [conversation, setConversation = useState<any>("")
 
     useEffect(()=>{
         async function getUsers() {
@@ -15,15 +16,30 @@ export default function MessagesUsers({currentUserId} : {currentUserId:string}) 
         getUsers();
     }, [])
 
+    const handleMessagesUserClicked = async (userId :string) => {
+        const res = await fetch("http://localhost:5000/conversation/createConversation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            currentUserId,
+            userId
+        })
+      });
+      const data = await res.json();
+      console.log(data);
+    }
+
     if(!users) return( 
         <div>Loading...</div>
-    )
+    ) 
 
     return(
         <div>
             {users.map((user: User) => (
-                <div>
-                    <p key={user.id}>User: {user.user_metadata.full_name}</p>
+                <div key={user.id}>
+                    <p onClick={() => handleMessagesUserClicked(user.id)} style={{ cursor: "pointer" }}>User: {user.user_metadata.full_name}</p>
                 </div>
             ))}
         </div>
