@@ -1,9 +1,10 @@
 import React from "react";
+import MessagesUsers from "../components/MessagesUsers"
 
-export default function Messages() {
+export default function Messages({ currentUserId } : { currentUserId: string;}) {
     return (    
         <div>
-            <h1>Messages Page</h1>
+            <MessagesUsers currentUserId = {currentUserId}></MessagesUsers>
         </div>
     )
 }

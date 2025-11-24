@@ -46,7 +46,7 @@ function handlePageChange(page: string, userId?: string | null) {
       <Navbar onPageChange={handlePageChange} userId={user.id}/>
 
       {page === "feed" && <Feed onOpenProfile={handlePageChange} currentUserId={user.id}/>}
-      {page === "messages" && <Messages />}
+      {page === "messages" && <Messages currentUserId = {user.id}/>}
       {page === "search" && <Search currentUserId={user.id} onOpenProfile={handlePageChange}/>}
       {page === "profile" && <Profile userId={profileUserId} onOpenProfile={handlePageChange} currentUser={user.id}/> }
 
