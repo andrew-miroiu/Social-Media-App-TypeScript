@@ -26,7 +26,7 @@ export default function Chat({currentUserId, conversation_id} : {currentUserId: 
                 filter: `conversation_id=eq.${conversation_id}`
             },
             (payload) => {
-                setMessages((prev) => [...prev, payload.new]);
+                setMessages((prev) => [...prev, payload.new: Message]);
             }
             )
             .subscribe();
@@ -38,6 +38,10 @@ export default function Chat({currentUserId, conversation_id} : {currentUserId: 
         }
 
         loadMessages();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
 
     }, [conversation_id])
 
