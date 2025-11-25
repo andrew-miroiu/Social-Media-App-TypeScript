@@ -10,6 +10,7 @@ import followRouter from './routes/followRoute'
 import likeRoute from './routes/likeRoute'
 import commentsRouter from './routes/commentsRouter'
 import conversationRouter from './routes/conversationRouter'
+import messagesRouter from './routes/messagesRouter'
 
 const app = express()
 app.use(cors())
@@ -22,6 +23,7 @@ app.use('/follow', followRouter)
 app.use('/like', likeRoute)
 app.use('/comments', commentsRouter)
 app.use('/conversation', conversationRouter)
+app.use('/messages', messagesRouter)
 
 app.get('/', (_, res) => res.send(' Server is running'))
 

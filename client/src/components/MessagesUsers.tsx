@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import type { User } from "@supabase/supabase-js"
 
-export default function MessagesUsers({currentUserId} : {currentUserId:string}) {
+export default function MessagesUsers({currentUserId , sendConversationId} : {currentUserId:string; sendConversationId: React.Dispatch<React.SetStateAction<string>>}) {
     const [users, setUsers] = useState<User[]>([])
-    //const [conversation, setConversation = useState<any>("")
+    const [conversation, setConversation] = useState<string>("")
 
     useEffect(()=>{
         async function getUsers() {
@@ -28,7 +28,11 @@ export default function MessagesUsers({currentUserId} : {currentUserId:string}) 
         })
       });
       const data = await res.json();
-      console.log(data);
+        const id = data.conversation.id;
+
+        setConversation(id);      
+        sendConversationId(id); 
+        console.log("CONVERSATIE", conversation);
     }
 
     if(!users) return( 

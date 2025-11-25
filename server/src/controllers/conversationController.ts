@@ -10,7 +10,6 @@ export async function createConversation(req: Request, res: Response) {
         }
 
         const conversation = await createConversationDb(currentUserId, userId);
-
         res.status(201).json({success: true, conversation});
     } catch (error: any) {
         res.status(500).json({ error: error?.message ?? String(error) });
