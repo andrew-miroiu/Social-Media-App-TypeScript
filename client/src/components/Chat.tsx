@@ -26,7 +26,7 @@ export default function Chat({currentUserId, conversation_id} : {currentUserId: 
                 filter: `conversation_id=eq.${conversation_id}`
             },
             (payload) => {
-                setMessages((prev) => [...prev, payload.new: Message]);
+                setMessages((prev) => [...prev, payload.new as Message]);
             }
             )
             .subscribe();
