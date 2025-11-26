@@ -22,8 +22,6 @@ export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (p
   return (
      <div className="flex justify-center w-full">
     <div className="w-full max-w-xl">
-      
-      <h1>Feed Page</h1>
       <PostForm />
 
       {posts.map((post, index) => (

@@ -40,24 +40,22 @@ function handlePageChange(page: string, userId?: string | null) {
   setPage(page);
 }
 
+function handleLogout() {
+  supabase.auth.signOut().then(() => {
+    setUser(null);
+  });
+}
+
   //return <Feed />
   return (
     <div >
-      <Navbar onPageChange={handlePageChange} userId={user.id}/>
+      <Navbar onPageChange={handlePageChange} handleLogout = {handleLogout} userId={user.id}/>
 
       {page === "feed" && <Feed onOpenProfile={handlePageChange} currentUserId={user.id}/>}
       {page === "messages" && <Messages currentUserId = {user.id}/>}
       {page === "search" && <Search currentUserId={user.id} onOpenProfile={handlePageChange}/>}
       {page === "profile" && <Profile userId={profileUserId} onOpenProfile={handlePageChange} currentUser={user.id}/> }
 
-
-      <h1>Welcome, {user.email}</h1>
-      <button onClick={async () => {
-        await supabase.auth.signOut()
-        setUser(null)
-      }}>
-        Log out
-      </button>
     </div>
   )
 }

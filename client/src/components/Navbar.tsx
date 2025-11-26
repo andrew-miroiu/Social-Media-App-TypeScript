@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Navbar({ onPageChange, userId }: { onPageChange: (page: string, userId?: string) => void; userId: string;}) {
+export default function Navbar({ onPageChange, userId , handleLogout}: { onPageChange: (page: string, userId?: string) => void; userId: string; handleLogout?: () => void}) {
   const [isOpen, setIsOpen] = useState(false);
 
   function changePage(page: string, userId?: string) {
@@ -47,7 +47,7 @@ export default function Navbar({ onPageChange, userId }: { onPageChange: (page: 
             Profile
           </button>
           <button
-            onClick={() => changePage("logout")}
+            onClick={handleLogout}
             className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded transition duration-200"
           >
             Logout
