@@ -5,6 +5,7 @@ import Chat from "../components/Chat"
 export default function Messages({ currentUserId } : { currentUserId: string;}) {
   const [conversation, setConversation] = useState<string>("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [chatHeaderUser, setChatHeaderUser] = useState<string>("");
   
   return (
     <div className="flex h-[calc(100vh-73px)] bg-white">
@@ -45,6 +46,7 @@ export default function Messages({ currentUserId } : { currentUserId: string;}) 
             currentUserId={currentUserId}
             sendConversationId={setConversation}
             onUserSelect={() => setIsSidebarOpen(false)}
+            setChatHeaderUser={setChatHeaderUser}
           />
         </div>
       </aside>
@@ -61,7 +63,7 @@ export default function Messages({ currentUserId } : { currentUserId: string;}) 
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <h1 className="text-lg font-semibold text-slate-900">Chat</h1>
+          <h1 className="text-lg font-semibold text-slate-900">Chat - {chatHeaderUser}</h1>
         </div>
 
         {/* Chat Component - Takes remaining space */}

@@ -75,17 +75,12 @@ export default function Post({post_id, username, user_id, content, image_url, vi
   }
   
   return (
-    <div className="post bg-gray-500 shadow-md rounded-xl p-4 sm:p-6 mb-6 w-full">
+    <div className="post bg-white shadow-md rounded-xl p-4 sm:p-6 mb-6 w-full">
       
       <div className="post-header mb-4">
-        <h3
-          onClick={() => onOpenProfile("profile", user_id)}
-          className="post-author font-semibold text-sm sm:text-base text-indigo-600 cursor-pointer "
-        >
-          Post by User: {username}
-        </h3>
+        
 
-        <p className="post-content text-slate-800 text-sm sm:text-base mt-1.5">{content}</p>
+        
 
         {image_url && (
           <img
@@ -100,6 +95,14 @@ export default function Post({post_id, username, user_id, content, image_url, vi
             <source src={video_url} />
           </video>
         )}
+
+        <h3
+          onClick={() => onOpenProfile("profile", user_id)}
+          className="post-author font-semibold text-sm sm:text-base text-indigo-600 cursor-pointer mt-1.5"
+        >
+          {username}
+        </h3>
+        <span className="post-content text-slate-800 text-sm sm:text-base mt-1.5">{content}</span>
       </div>
 
       <div className="post-actions mt-4 pt-3 border-t border-slate-200 w-full">

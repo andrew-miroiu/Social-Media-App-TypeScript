@@ -4,11 +4,13 @@ import type { User } from "@supabase/supabase-js"
 export default function MessagesUsers({
     currentUserId, 
     sendConversationId,
-    onUserSelect
+    onUserSelect,
+    setChatHeaderUser
 } : {
     currentUserId:string; 
     sendConversationId: React.Dispatch<React.SetStateAction<string>>;
     onUserSelect?: () => void;
+    setChatHeaderUser: React.Dispatch<React.SetStateAction<string>>;
 }) {
     const [users, setUsers] = useState<User[]>([])
     const [conversation, setConversation] = useState<string>("")
@@ -54,7 +56,7 @@ export default function MessagesUsers({
             {users.map((user: User) => (
             <div 
                 key={user.id}
-                onClick={() => handleMessagesUserClicked(user.id)}
+                onClick={() => {handleMessagesUserClicked(user.id); setChatHeaderUser(user.user_metadata.full_name || ""); }}
                 className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition ${
                     selectedUserId === user.id 
                         ? "bg-indigo-500 text-white shadow-md" 

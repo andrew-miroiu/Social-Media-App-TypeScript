@@ -93,7 +93,7 @@ export default function Navbar({ onPageChange, userId , handleLogout}: { onPageC
             Profile
           </button>
           <button
-            onClick={() => changePage("logout")}
+            onClick={handleLogout}
             className="block w-full text-left px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded transition duration-200"
           >
             Logout
