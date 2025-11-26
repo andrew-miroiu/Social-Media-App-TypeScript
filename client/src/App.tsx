@@ -42,7 +42,7 @@ function handlePageChange(page: string, userId?: string | null) {
 
   //return <Feed />
   return (
-    <div>
+    <div >
       <Navbar onPageChange={handlePageChange} userId={user.id}/>
 
       {page === "feed" && <Feed onOpenProfile={handlePageChange} currentUserId={user.id}/>}

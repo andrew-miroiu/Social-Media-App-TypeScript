@@ -1,5 +1,7 @@
 import {useState, useEffect} from "react";
 import CommentForm from "./CommentForm"
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+
 
 interface Comments {
   id: string;
@@ -73,38 +75,68 @@ export default function Post({post_id, username, user_id, content, image_url, vi
   }
   
   return (
-    <div>
-      <div>
-        <h3 onClick={() => onOpenProfile("profile", user_id)} style={{cursor: "pointer"}}>Post by User: {username}</h3>
-        <p>{content}</p>
-        {image_url && <img src={image_url} alt="Post media" style={{maxWidth: "400px"}} />}
+    <div className="post bg-gray-500 shadow-md rounded-xl p-4 sm:p-6 mb-6 w-full">
+      
+      <div className="post-header mb-4">
+        <h3
+          onClick={() => onOpenProfile("profile", user_id)}
+          className="post-author font-semibold text-sm sm:text-base text-indigo-600 cursor-pointer "
+        >
+          Post by User: {username}
+        </h3>
+
+        <p className="post-content text-slate-800 text-sm sm:text-base mt-1.5">{content}</p>
+
+        {image_url && (
+          <img
+            src={image_url}
+            alt="Post media"
+            className="post-image w-full max-h-[70vh] object-contain bg-black rounded-lg mt-3"
+          />
+        )}
+
         {video_url && (
-          <video controls style={{maxWidth: "400px"}}>
+          <video controls className="post-video w-full max-h-[70vh] object-contain bg-black rounded-lg mt-3">
             <source src={video_url} />
           </video>
         )}
       </div>
-      <div className="likes-comments">
-        <div className="likes">
-          <p>Likes: {numberOfLikes}</p>
-          <p>Comments: {numberOfComments}</p>
-          <button onClick={handleLike}>
-            {liked ? "Unlike" : "Like"}
-          </button>
-          <button onClick={handleOpeningComments}>
-            Comments
-          </button>
+
+      <div className="post-actions mt-4 pt-3 border-t border-slate-200 w-full">
+        
+        <div className="post-stats post-stats flex items-center gap-4 text-sm text-slate-700 mb-3">
+          <button
+              onClick={handleLike}
+              className="flex items-center gap-1 text-red-500 hover:scale-110 transition-transform"
+            >
+              {liked ? (
+                <AiFillHeart/>
+              ) : (
+                <AiOutlineHeart/>
+              )}
+              <span className="text-slate-700">{numberOfLikes}</span>
+            </button>
+          <button onClick={handleOpeningComments} className="post-comment-count">💬 {numberOfComments}</button>
         </div>
-          <div className="comments" style={{display: openedCommentSection}}>
-            <CommentForm post_id = {post_id} user_id = {currentUserId} refreshComments = {fetchComments}></CommentForm>
+
+        <div className={`post-comments mt-4 ${openedCommentSection === "none" ? "hidden" : "block"}`}>
+          
+          <CommentForm 
+            post_id={post_id}
+            user_id={currentUserId}
+            refreshComments={fetchComments}
+          />
+
+          <div className="mt-3 space-y-2">
             {comments.map((comment) => (
-              <p key={comment.id}>
-                {comment.username}: {comment.text}
+              <p key={comment.id} className="post-comment text-sm text-slate-800">
+                <span className="font-medium">{comment.username}:</span> {comment.text}
               </p>
             ))}
-          </div>  
-          
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }

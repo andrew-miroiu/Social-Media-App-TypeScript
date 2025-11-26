@@ -81,26 +81,55 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
       .includes(searchedUsername.toLowerCase())
     );
 
-    return (    
-        <div>
-            <h1>Search Page</h1>
-            <div>
-                <input type="text" value={searchedUsername} onChange={(e) => setSearchedUsername(e.target.value)}/>
-                {filteredUsers.map((user: SearchUser) => (
-                <div className="user" key={user.id} style={{ backgroundColor: "red", gap : "2rem" }}>
-                    <p><strong>{user.user_metadata.full_name || "(no name)"}</strong></p>
-                    <p onClick={() => {onOpenProfile("profile", user.id)}} style={{cursor: "pointer"}}>{user.email}</p>
-                    <button onClick={() =>
-                        user.following
-                        ? handleUnfollow(user.id)
-                        : handleFollow(user.id)
-                    }>
-                        {user.following ? "Unfollow" : "Follow"}
-                    </button>
-                </div>
-                ))}
-            </div>
+   return (
+  <div className="search-page w-full max-w-xl mx-auto p-4">
+
+    <h1 className="text-xl font-semibold mb-4">Search</h1>
+
+    <input 
+      type="text" 
+      value={searchedUsername}
+      onChange={(e) => setSearchedUsername(e.target.value)}
+      placeholder="Search by email..."
+      className="search-input w-full p-3 rounded-lg border border-slate-300 bg-slate-50 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+    />
+
+    <div className="search-results flex flex-col gap-4">
+      {filteredUsers.map((user: SearchUser) => (
+        <div 
+          key={user.id}
+          className="user-item flex justify-between items-center p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition cursor-pointer"
+        >
+          <div>
+            <p className="font-semibold text-slate-800">
+              {user.user_metadata.full_name || "(no name)"}
+            </p>
+
+            <p 
+              onClick={() => onOpenProfile("profile", user.id)}
+              className="text-sm text-indigo-600 hover:underline cursor-pointer"
+            >
+              {user.email}
+            </p>
+          </div>
+          <button
+            onClick={() =>
+              user.following ? handleUnfollow(user.id) : handleFollow(user.id)
+            }
+            className={
+              user.following
+                ? "unfollow px-4 py-2 rounded-lg bg-slate-200 text-slate-900 text-sm font-medium hover:bg-slate-300 transition"
+                : "follow px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition"
+            }
+          >
+            {user.following ? "Unfollow" : "Follow"}
+          </button>
+
         </div>
-    )
+      ))}
+    </div>
+
+  </div>
+);
 }
         

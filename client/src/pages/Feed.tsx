@@ -20,24 +20,28 @@ export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (p
 
 
   return (
-    <div>
+     <div className="flex justify-center w-full">
+    <div className="w-full max-w-xl">
+      
       <h1>Feed Page</h1>
       <PostForm />
-        <div>
-            {posts.map((post, index) => (
-                <Post 
-                    key={index}
-                    post_id={post.id}
-                    username={post.username}
-                    user_id={post.user_id}
-                    content={post.text}
-                    image_url={post.image_url}
-                    video_url={post.video_url}
-                    currentUserId = {currentUserId}
-                    onOpenProfile={onOpenProfile}
-                />
-            ))}
-        </div>
+
+      {posts.map((post, index) => (
+        <Post 
+          key={index}
+          post_id={post.id}
+          username={post.username}
+          user_id={post.user_id}
+          content={post.text}
+          image_url={post.image_url}
+          video_url={post.video_url}
+          currentUserId={currentUserId}
+          onOpenProfile={onOpenProfile}
+        />
+      ))}
+
     </div>
+  </div>
+
   )
 }

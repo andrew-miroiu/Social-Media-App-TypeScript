@@ -65,31 +65,60 @@ export default function PostForm() {
   if (!userId) return <p>Please log in to post.</p>;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form 
+      onSubmit={handleSubmit}
+      className="postform flex flex-col gap-4 p-4 bg-white rounded-xl shadow-md mb-6"
+    >
 
+      {/* TEXTAREA */}
       <textarea
         placeholder="What's on your mind?"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        className="postform-textarea w-full p-3 rounded-lg border border-slate-300 bg-slate-50 resize-none text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        rows={3}
       />
 
+      {/* PREVIEW (image OR video) */}
       {preview && file && (
-        <div>
+        <div className="postform-preview w-full flex justify-center">
           {file.type.startsWith("image/") && (
-            <img src={preview} alt="preview" width="200" />
+            <img 
+              src={preview} 
+              alt="preview" 
+              className="max-h-64 object-contain rounded-lg"
+            />
           )}
 
           {file.type.startsWith("video/") && (
-            <video width="300" controls>
+            <video 
+              controls 
+              className="max-h-64 object-contain rounded-lg"
+            >
               <source src={preview} />
             </video>
           )}
         </div>
       )}
 
-      <input type="file" accept="image/*,video/*" onChange={handleFileChange} />
+      {/* FILE INPUT */}
+      <input 
+        type="file" 
+        accept="image/*,video/*" 
+        onChange={handleFileChange}
+        className="postform-file block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-600 file:text-white hover:file:bg-indigo-700"
+      />
 
-      <button type="submit">Post</button>
+      {/* BUTTON */}
+      <button 
+        type="submit"
+        className="postform-button self-end px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+        disabled={!content.trim() && !file}
+      >
+        Post
+      </button>
+
     </form>
+
   );
 }
