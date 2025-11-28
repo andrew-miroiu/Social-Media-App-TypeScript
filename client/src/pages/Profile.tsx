@@ -80,12 +80,12 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
     </div>
 
     <div>
-      <p className="text-lg font-bold">{loadedUser.followersCount}</p>
+      <p className="text-lg font-bold">{loadedUser.followingCount}</p>
       <p className="text-xs text-slate-500">Followers</p>
     </div>
 
     <div>
-      <p className="text-lg font-bold">{loadedUser.followingCount}</p>
+      <p className="text-lg font-bold">{loadedUser.followersCount}</p>
       <p className="text-xs text-slate-500">Following</p>
     </div>
   </div>
