@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
-import { supabase } from "../lib/supabaseClient"
+import { supabase } from "../lib/supabaseClient";
+import { API_BASE_URL } from "../lib/apiConfig";
 
 interface Message{
   id: string;
@@ -35,7 +36,7 @@ export default function Chat({currentUserId, conversation_id} : {currentUserId: 
       .subscribe();
 
     const loadMessages = async () => {
-      const res = await fetch(`http://localhost:5000/messages/getMessages/${conversation_id}`);
+      const res = await fetch(`${API_BASE_URL}/messages/getMessages/${conversation_id}`);
       const data = await res.json();
       setMessages(data.messages);
     }
@@ -55,7 +56,7 @@ export default function Chat({currentUserId, conversation_id} : {currentUserId: 
     e.preventDefault();
     if (!messageContent.trim()) return;
 
-    await fetch("http://localhost:5000/messages/sendMessage", {
+    await fetch(`${API_BASE_URL}/messages/sendMessage`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

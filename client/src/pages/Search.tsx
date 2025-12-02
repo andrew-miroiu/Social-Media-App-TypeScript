@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import { API_BASE_URL } from "../lib/apiConfig";
 //import type {User} from "@supabase/supabase-js"
 
 interface SearchUser {
@@ -17,7 +18,7 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
 
     useEffect(() => {
         async function getUsers() {
-            const res = await fetch(`http://localhost:5000/users/${currentUserId}`);
+            const res = await fetch(`${API_BASE_URL}/users/${currentUserId}`);
             const data = await res.json();
             const filtered = data.filter((u: SearchUser) => u.id !== currentUserId);
             setUsers(filtered);
@@ -29,7 +30,7 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
 
     const handleFollow = async (followingId : string) =>{
 
-        const res = await fetch("http://localhost:5000/follow/follow", {
+        const res = await fetch(`${API_BASE_URL}/follow/follow`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -54,7 +55,7 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
 
     const handleUnfollow = async (followingId: string) =>{
 
-        await fetch("http://localhost:5000/follow/unfollow", {
+        await fetch(`${API_BASE_URL}/follow/unfollow`, {
             method: "DELETE",
             headers: {
             "Content-Type": "application/json",

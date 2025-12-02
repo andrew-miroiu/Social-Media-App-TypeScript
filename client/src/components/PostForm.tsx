@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import { API_BASE_URL } from "../lib/apiConfig";
 
 export default function PostForm() {
   const [content, setContent] = useState("");
@@ -49,7 +50,7 @@ export default function PostForm() {
     formData.append("user_id", userId);
     if (file) formData.append("file", file);
 
-    const res = await fetch("http://localhost:5000/posts", {
+    const res = await fetch(`${API_BASE_URL}/posts`, {
       method: "POST",
       body: formData,
     });

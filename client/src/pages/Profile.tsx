@@ -1,4 +1,5 @@
 import  { useEffect, useState } from "react";
+import { API_BASE_URL } from "../lib/apiConfig";
 
 interface ProfileProps {
   userId?: string | null;
@@ -36,11 +37,11 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
     async function loadProfile() {
       if (!userId) return;
 
-      const res = await fetch(`http://localhost:5000/profile/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/profile/${userId}`);
       const data = await res.json();
       setLoadedUser(data.profile);
 
-      const resPosts = await fetch(`http://localhost:5000/posts/user/${userId}`);
+      const resPosts = await fetch(`${API_BASE_URL}/posts/user/${userId}`);
       const dataPosts = await resPosts.json();
       console.log(dataPosts.posts);
       setProfilePosts(dataPosts.posts);
@@ -59,7 +60,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
     formData.append("avatar", avatarFile);
     formData.append("userId", loadedUser.id);
 
-    await fetch("http://localhost:5000/profile/updateProfilePicture", {
+    await fetch(`${API_BASE_URL}/profile/updateProfilePicture`, {
       method: "PUT",
       body: formData,
     });

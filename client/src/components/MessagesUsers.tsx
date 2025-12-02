@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
-import type { User } from "@supabase/supabase-js"
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../lib/apiConfig";
+import type { User } from "@supabase/supabase-js";
 
 export default function MessagesUsers({
     currentUserId, 
@@ -18,7 +19,7 @@ export default function MessagesUsers({
 
     useEffect(()=>{
         async function getUsers() {
-            const res = await fetch(`http://localhost:5000/users/${currentUserId}`);
+            const res = await fetch(`${API_BASE_URL}/users/${currentUserId}`);
             const data = await res.json();
             const filtered = data.filter((u: User) => u.id !== currentUserId);
             setUsers(filtered);
@@ -27,7 +28,7 @@ export default function MessagesUsers({
     }, [currentUserId])
 
     const handleMessagesUserClicked = async (userId :string) => {
-        const res = await fetch("http://localhost:5000/conversation/createConversation", {
+        const res = await fetch(`${API_BASE_URL}/conversation/createConversation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

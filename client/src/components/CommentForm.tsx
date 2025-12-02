@@ -1,4 +1,5 @@
-import React, {useState} from "react"
+import React, {useState} from "react";
+import { API_BASE_URL } from "../lib/apiConfig";
 
 export default function CommentForm({post_id, user_id, refreshComments} : {post_id: string; user_id: string; refreshComments:() => Promise<void>;}) {
     
@@ -7,7 +8,7 @@ export default function CommentForm({post_id, user_id, refreshComments} : {post_
     const handleCommentPost = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        await fetch("http://localhost:5000/comments/postComment", {
+        await fetch(`${API_BASE_URL}/comments/postComment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

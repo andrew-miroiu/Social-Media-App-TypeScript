@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import CommentForm from "./CommentForm"
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { API_BASE_URL } from "../lib/apiConfig";
 
 
 interface Comments {
@@ -24,13 +25,13 @@ export default function Post({post_id, username, user_id, content, image_url, vi
   async function loadLikes() {
     if (!post_id) return;
 
-    const res = await fetch(`http://localhost:5000/like/numberOflikes/${post_id}`);
+    const res = await fetch(`${API_BASE_URL}/like/numberOflikes/${post_id}`);
     const data = await res.json();
     setNumberOfLikes(data.numberOflikes);
 
     if(!currentUserId) return;
 
-    const result = await fetch(`http://localhost:5000/like/userLiked/${post_id}/${currentUserId}`);
+    const result = await fetch(`${API_BASE_URL}/like/userLiked/${post_id}/${currentUserId}`);
     const isLiked = await result.json();
     setLiked(isLiked.liked);
   }
@@ -39,7 +40,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
   }, []);
 
   const handleLike = async () => {
-        const res = await fetch("http://localhost:5000/like/toggleLike", {
+        const res = await fetch(`${API_BASE_URL}/like/toggleLike`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -57,7 +58,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
   }
 
   const fetchComments = async () => {
-    const res = await fetch(`http://localhost:5000/comments/getComments/${post_id}`)
+    const res = await fetch(`${API_BASE_URL}/comments/getComments/${post_id}`)
     const data = await res.json();
     setComments(data.comments)
     setNumberOfComments(data.numberOfComments)

@@ -51,6 +51,21 @@ export async function uploadProfilePictureToSupabase(file: any, userId: string) 
 
   const fileName = `${userId}_${Date.now()}.webp`;
 
+  const fullUrl = await getUserProfilePictureDb(userId);
+
+  const prefix = "/storage/v1/object/public/socialMediaApp/";
+  const index = fullUrl.indexOf(prefix);
+
+  if (index !== -1) {
+    const path = fullUrl.slice(index + prefix.length); 
+
+    const { error: removeError } = await supabase.storage
+      .from("socialMediaApp")
+      .remove([path]);
+
+    if (removeError) console.error(removeError);
+  }
+
   const { error: uploadError } = await supabase.storage
     .from("socialMediaApp")
     .upload(`profile_pictures/${fileName}`, file.buffer, {

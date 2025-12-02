@@ -1,6 +1,7 @@
 import React from "react";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
+import { API_BASE_URL } from "../lib/apiConfig";
 
 export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (page: string, userId: string) => void; currentUserId: string;}) {
 
@@ -8,7 +9,7 @@ export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (p
 
     React.useEffect(() => {
         // Fetch posts from the backend
-        fetch("http://localhost:5000/posts")
+        fetch(`${API_BASE_URL}/posts`)
             .then((res) => res.json())
             .then((data) => { 
                 if (data.success) {
