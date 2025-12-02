@@ -76,7 +76,7 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
 
 
     const filteredUsers = users.filter(user =>
-    user.email
+    user.user_metadata.full_name
       ?.toLowerCase()
       .includes(searchedUsername.toLowerCase())
     );

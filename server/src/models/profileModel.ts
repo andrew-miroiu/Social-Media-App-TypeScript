@@ -34,6 +34,7 @@ export async function getUserProfileFromDB(userId: string) {
         username: user.user_metadata.username,
         full_name: user.user_metadata.full_name,
         followersCount: followersCount,
-        followingCount: followingCount
+        followingCount: followingCount,
+        avatar_url: user.user_metadata.avatar_url,
     };
 }

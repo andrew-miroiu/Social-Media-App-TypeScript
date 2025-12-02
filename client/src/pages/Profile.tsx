@@ -13,6 +13,7 @@ interface LoadedUser {
   full_name?: string | null;
   followersCount?: string | null;
   followingCount?: string | null;
+  avatar_url?: string;
 }
 
 interface ProfilePosts{
@@ -51,16 +52,18 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
   return (
   <div className="profile-page w-full max-w-xl mx-auto p-4">
 
-    {/* USER HEADER */}
+
 <div className="profile-header bg-white shadow-md rounded-xl p-5 mb-6">
 
-  {/* TOP SECTION: avatar + name */}
   <div className="flex items-center gap-4">
     
     {/* PROFILE PICTURE */}
     <div className="h-20 w-20 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
-      {/* aici vei pune poza reală */}
-      <span className="text-slate-500 text-sm">No Image</span>
+      {loadedUser.avatar_url ? (
+        <img src={loadedUser.avatar_url} alt="Avatar" />
+      ) : (
+        <span className="text-slate-500 text-sm">No Image</span>
+      )}
     </div>
 
     <div>
