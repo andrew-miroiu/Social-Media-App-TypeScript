@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { uploadFileToSupabase, createPostInDB, getAllPostsFromDB, getPostsByUsernameDb } from "../models/postModel";
+import {optimizeImage} from "../middleware/optimizeFile"
 
 export async function createPost(req: any, res: any) {
   try {
@@ -9,8 +10,15 @@ export async function createPost(req: any, res: any) {
     let image_url: string | null = null;
     let video_url: string | null = null;
 
+    let fileToUpload: any = file;
+
+    if (file && file.mimetype.startsWith("image/")) {
+      const optimized = await optimizeImage(file);
+      fileToUpload = { ...file, buffer: optimized };
+    }
+
     if (file) {
-      const publicUrl = await uploadFileToSupabase(file);
+      const publicUrl = await uploadFileToSupabase(fileToUpload);
     
       if (file.mimetype.startsWith("image/")) {
         image_url = publicUrl;

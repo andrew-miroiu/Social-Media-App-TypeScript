@@ -1,5 +1,6 @@
 import {getUserProfileFromDB, uploadProfilePictureToSupabase, getUserProfilePictureDb} from "../models/profileModel";
 import {Request, Response} from "express";
+import {optimizeImage} from "../middleware/optimizeFile"
 
 export async function getUserProfile(req: Request, res: Response) {
     try {
@@ -16,8 +17,16 @@ export async function updateProfilePicture(req: Request, res: Response) {
         const file = req.file;
         const userId = req.body.userId;
 
+        let fileToUpload: any = file;
+        
+            if (file && file.mimetype.startsWith("image/")) {
+              const optimized = await optimizeImage(file);
+              fileToUpload = { ...file, buffer: optimized };
+            }
+        
+
         if (file) {
-            const publicUrl = await uploadProfilePictureToSupabase(file, userId);
+            const publicUrl = await uploadProfilePictureToSupabase(fileToUpload, userId);
             res.status(200).json({success: true, publicUrl});
         }
     } catch (error: any) {

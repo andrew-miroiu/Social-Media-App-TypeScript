@@ -7,7 +7,6 @@ export async function optimizeImage(file: Express.Multer.File) {
   }
 
   return await sharp(file.buffer)
-    .resize({ width: 1024, withoutEnlargement: true })
     .webp({ quality: 80 })
     .toBuffer();
 }
