@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { text } from "stream/consumers";
+//import { text } from "stream/consumers";
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
@@ -65,7 +65,7 @@ export async function getAllPostsFromDB() {
     const user = users.find((u: any) => u.id === post.user_id);
     return {
       ...post,
-      username: user?.email ?? user?.user_metadata?.full_name ?? null,
+      username: user?.user_metadata?.full_name ?? user?.email ??  null,
       avatar_url: user?.user_metadata?.avatar_url ?? null,
     };
   }) ?? [];

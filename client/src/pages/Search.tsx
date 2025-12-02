@@ -96,21 +96,21 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
 
     <div className="search-results flex flex-col gap-4">
       {filteredUsers.map((user: SearchUser) => (
-        <div 
+        <div
           key={user.id}
           className="user-item flex justify-between items-center p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition cursor-pointer"
         >
-          <div>
+          <div onClick={() => onOpenProfile("profile", user.id)}>
             <p className="font-semibold text-slate-800">
               {user.user_metadata.full_name || "(no name)"}
             </p>
-
+          {/*
             <p 
               onClick={() => onOpenProfile("profile", user.id)}
               className="text-sm text-indigo-600 hover:underline cursor-pointer"
             >
               {user.email}
-            </p>
+            </p>*/}
           </div>
           <button
             onClick={() =>

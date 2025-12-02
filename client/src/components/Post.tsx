@@ -80,8 +80,6 @@ export default function Post({post_id, username, user_id, content, image_url, vi
       <div className="post-header mb-4">
         
 
-        
-
         {image_url && (
           <img
             src={image_url}

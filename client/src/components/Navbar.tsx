@@ -5,7 +5,7 @@ export default function Navbar({ onPageChange, userId , handleLogout}: { onPageC
 
   function changePage(page: string, userId?: string) {
     onPageChange(page, userId);
-    setIsOpen(false); // Close menu after clicking
+    setIsOpen(false);
   }
 
   function toggleMenu() {

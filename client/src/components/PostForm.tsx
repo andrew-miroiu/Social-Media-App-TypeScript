@@ -6,6 +6,7 @@ export default function PostForm() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  
 
   // Get logged-in user
   useEffect(() => {

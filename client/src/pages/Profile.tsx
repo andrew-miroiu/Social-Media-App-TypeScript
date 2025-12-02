@@ -26,9 +26,11 @@ interface ProfilePosts{
   currentUserId: string;
 }
 
-export default function Profile({ userId, onOpenProfile }: ProfileProps) {
+export default function Profile({ userId, onOpenProfile, currentUser }: ProfileProps) {
   const [loadedUser, setLoadedUser] = useState<LoadedUser | null>(null);
   const [profilePosts, setProfilePosts] = useState<ProfilePosts[]>([]);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+
 
   useEffect(() => {
     async function loadProfile() {
@@ -46,6 +48,25 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
     loadProfile();
   }, [userId]);
 
+  async function handleAvatarSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!loadedUser) return;
+
+    if (!avatarFile) return alert("Choose a file!");
+
+
+    const formData = new FormData();
+    formData.append("avatar", avatarFile);
+    formData.append("userId", loadedUser.id);
+
+    await fetch("http://localhost:5000/profile/updateProfilePicture", {
+      method: "PUT",
+      body: formData,
+    });
+
+    window.location.reload();
+  }
+  
 
   if (!loadedUser || !profilePosts) return <p className="loading flex justify-center align-center mt-10">Loading profile...</p>;
   
@@ -53,7 +74,7 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
   <div className="profile-page w-full max-w-xl mx-auto p-4">
 
 
-<div className="profile-header bg-white shadow-md rounded-xl p-5 mb-6">
+  <div className="profile-header bg-white shadow-md rounded-xl p-5 mb-6">
 
   <div className="flex items-center gap-4">
     
@@ -66,14 +87,34 @@ export default function Profile({ userId, onOpenProfile }: ProfileProps) {
       )}
     </div>
 
+    
+
     <div>
       <h1 className="text-xl font-semibold">
         {loadedUser.full_name || loadedUser.username}
       </h1>
-      <p className="text-sm text-slate-600">{loadedUser.email}</p>
+      {//<p className="text-sm text-slate-600">{loadedUser.email}</p>
+      }
     </div>
 
   </div>
+      {currentUser === userId && (
+        <form className="mt-3 flex items-center" onSubmit={handleAvatarSubmit}>
+         <input 
+            type="file"
+            accept="image/*"
+            onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+          />
+
+          <button
+            type="submit"
+            className="px-3 py-1 bg-indigo-600 text-white text-xs rounded-md"
+          >
+            Update
+          </button>
+        </form>
+      )}
+
 
   {/* STATS */}
   <div className="flex justify-around mt-5 text-center">
