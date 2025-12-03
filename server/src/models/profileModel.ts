@@ -53,23 +53,23 @@ export async function uploadProfilePictureToSupabase(file: any, userId: string) 
 
   const fullUrl = await getUserProfilePictureDb(userId);
 
-  const prefix = "/storage/v1/object/public/socialMediaApp/";
-  const index = fullUrl.indexOf(prefix);
+  // Remove old avatar if exists 🧹
+  if (fullUrl) {
+    const prefix = "/storage/v1/object/public/socialMediaApp/";
+    const index = fullUrl.indexOf(prefix);
 
-  if (index !== -1) {
-    const path = fullUrl.slice(index + prefix.length); 
-
-    const { error: removeError } = await supabase.storage
-      .from("socialMediaApp")
-      .remove([path]);
-
-    if (removeError) console.error(removeError);
+    if (index !== -1) {
+      const path = fullUrl.slice(index + prefix.length);
+      await supabase.storage.from("socialMediaApp").remove([path]);
+    }
   }
+
+  const inputFile = file.buffer ? file.buffer : file; // 🔥 important
 
   const { error: uploadError } = await supabase.storage
     .from("socialMediaApp")
-    .upload(`profile_pictures/${fileName}`, file.buffer, {
-      contentType: file.mimetype,
+    .upload(`profile_pictures/${fileName}`, inputFile, {
+      contentType: "image/webp", // 🔥 important
       upsert: true,
     });
 
@@ -84,8 +84,7 @@ export async function uploadProfilePictureToSupabase(file: any, userId: string) 
   const { error } = await supabase
     .from("profiles")
     .update({ avatar_url: avatarUrl })
-    .eq("id", userId)
-    .select();
+    .eq("id", userId);
 
   if (error) throw new Error(error.message);
 
