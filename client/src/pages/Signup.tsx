@@ -32,7 +32,7 @@ export default function Signup({ setLogin }: { setLogin: React.Dispatch<React.Se
   async function handleGoogleLogin() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: "https://onlyfriends69.netlify.app/" }
+      options: { redirectTo: window.location.origin }
     })
 
     if (error) {

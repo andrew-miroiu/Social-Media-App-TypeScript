@@ -22,6 +22,7 @@ function App() {
   const handleOAuthCallback = async () => {
     if (window.location.hash.includes("access_token")) {
       const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
+
       if (!error) {
         window.history.replaceState({}, "", window.location.pathname);
       }
