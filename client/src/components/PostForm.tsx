@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { API_BASE_URL } from "../lib/apiConfig";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function PostForm() {
   const [content, setContent] = useState("");
@@ -117,12 +118,19 @@ export default function PostForm() {
       />
 
       {/* BUTTON */}
-      <button 
+      <button
         type="submit"
-        className="postform-button self-end px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
         disabled={isSubmitting || (!content.trim() && !file)}
+        className="postform-button flex items-center gap-2 self-end px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
       >
-        Post
+        {isSubmitting ? (
+          <>
+            <ClipLoader size={16} color="#fff" />
+            Posting...
+          </>
+        ) : (
+          "Post"
+        )}
       </button>
 
     </form>
