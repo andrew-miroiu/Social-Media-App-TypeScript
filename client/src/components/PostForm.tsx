@@ -7,6 +7,8 @@ export default function PostForm() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   
 
   // Get logged-in user
@@ -45,6 +47,8 @@ export default function PostForm() {
       return;
     }
 
+    setIsSubmitting(true);
+
     const formData = new FormData();
     formData.append("content", content);
     formData.append("user_id", userId);
@@ -62,6 +66,7 @@ export default function PostForm() {
     setFile(null);
     setPreview(null);
     window.location.reload();
+    setIsSubmitting(false);
   }
 
   if (!userId) return <p>Please log in to post.</p>;
@@ -115,7 +120,7 @@ export default function PostForm() {
       <button 
         type="submit"
         className="postform-button self-end px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
-        disabled={!content.trim() && !file}
+        disabled={isSubmitting || (!content.trim() && !file)}
       >
         Post
       </button>
