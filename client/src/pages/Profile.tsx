@@ -1,5 +1,7 @@
 import  { useEffect, useState } from "react";
 import { API_BASE_URL } from "../lib/apiConfig";
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 interface ProfileProps {
   userId?: string | null;
@@ -31,6 +33,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
   const [loadedUser, setLoadedUser] = useState<LoadedUser | null>(null);
   const [profilePosts, setProfilePosts] = useState<ProfilePosts[]>([]);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
 
     if (!avatarFile) return alert("Choose a file!");
 
-
+    setIsSubmitting(true);
     const formData = new FormData();
     formData.append("avatar", avatarFile);
     formData.append("userId", loadedUser.id);
@@ -66,6 +69,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
     });
 
     window.location.reload();
+    setIsSubmitting(false);
   }
   
 
@@ -100,18 +104,30 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
 
   </div>
       {currentUser === userId && (
-        <form className="mt-3 flex flex-col sm:flex-row gap-2 items-start sm:items-center" onSubmit={handleAvatarSubmit}>
-         <input 
+        <form
+          className="mt-3 flex flex-col sm:flex-row gap-2 items-start sm:items-center"
+          onSubmit={handleAvatarSubmit}
+        >
+          <input
             type="file"
             accept="image/*"
             onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+            disabled={isSubmitting}
           />
 
           <button
             type="submit"
-            className="px-3 py-1 bg-indigo-600 text-white text-xs rounded-md"
+            disabled={isSubmitting || !avatarFile}
+            className="px-3 py-1 bg-indigo-600 text-white text-xs rounded-md flex items-center gap-2 disabled:opacity-50"
           >
-            Update
+            {isSubmitting ? (
+              <>
+                <ClipLoader size={14} color="#ffffff" />
+                Updating...
+              </>
+            ) : (
+              "Update"
+            )}
           </button>
         </form>
       )}
