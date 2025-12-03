@@ -72,7 +72,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
   if (!loadedUser || !profilePosts) return <p className="loading flex justify-center align-center mt-10">Loading profile...</p>;
   
   return (
-  <div className="profile-page w-full max-w-xl mx-auto p-4">
+  <div className="profile-page w-full max-w-xl mx-auto p-4 overflow-x-hidden">
 
 
   <div className="profile-header bg-white shadow-md rounded-xl p-5 mb-6">
