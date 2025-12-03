@@ -91,7 +91,7 @@ export default function Search({ currentUserId , onOpenProfile} : {currentUserId
       type="text" 
       value={searchedUsername}
       onChange={(e) => setSearchedUsername(e.target.value)}
-      placeholder="Search by email..."
+      placeholder="Search by username..."
       className="search-input w-full p-3 rounded-lg border border-slate-300 bg-slate-50 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
     />
 
