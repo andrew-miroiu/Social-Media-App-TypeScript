@@ -13,12 +13,16 @@ import conversationRouter from './routes/conversationRouter'
 import messagesRouter from './routes/messagesRouter'
 
 const app = express()
+const allowedOrigins = [
+  "https://onlyfriends69.netlify.app",
+  "http://localhost:3000",
+  "http://localhost:5173"
+];
+
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://onlyfriends69.netlify.app"
-  ],
-  credentials: true
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
 }));
 app.use(express.json())
 
