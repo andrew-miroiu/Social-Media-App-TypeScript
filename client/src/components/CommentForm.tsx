@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import { API_BASE_URL } from "../lib/apiConfig";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function CommentForm({post_id, user_id, refreshComments} : {post_id: string; user_id: string; refreshComments:() => Promise<void>;}) {
     
     const [text, setText] = useState<string>("");
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
     const handleCommentPost = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         await fetch(`${API_BASE_URL}/comments/postComment`, {
             method: "POST",
@@ -22,6 +25,7 @@ export default function CommentForm({post_id, user_id, refreshComments} : {post_
 
         setText("");
         await refreshComments();
+        setIsSubmitting(false);
     }
 
     return(
@@ -38,9 +42,16 @@ export default function CommentForm({post_id, user_id, refreshComments} : {post_
                 <button 
                     type="submit"
                     className="comment-button self-end px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
-                    disabled={text.trim().length === 0}
+                    disabled={isSubmitting || text.trim().length === 0}
                 >
-                    Post
+                    {isSubmitting ? (
+                        <>
+                            <ClipLoader size={16} color="#fff" />
+                            Posting...
+                        </>
+                        ) : (
+                        "Post"
+                        )}
                 </button>
 
             </form>
