@@ -8,7 +8,8 @@ export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (p
     const [posts, setPosts] = React.useState<Array<{id: string; username: string; user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
 
     React.useEffect(() => {
-        console.log("API:", API_BASE_URL);
+        console.log("API::  ", API_BASE_URL);
+        
         // Fetch posts from the backend
         fetch(`${API_BASE_URL}/posts`)
             .then((res) => res.json())
