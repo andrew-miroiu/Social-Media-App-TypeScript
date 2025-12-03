@@ -10,7 +10,7 @@ export default function Login( {setLogin} : {setLogin: React.Dispatch<React.SetS
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin // după login revine aici
+        redirectTo: "https://onlyfriends69.netlify.app/" // după login revine aici
       }
     })
 
