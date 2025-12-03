@@ -13,7 +13,10 @@ import conversationRouter from './routes/conversationRouter'
 import messagesRouter from './routes/messagesRouter'
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: "*", // sau Netlify URL
+  credentials: true
+}));
 app.use(express.json())
 
 app.use('/posts', postRouter)
