@@ -8,12 +8,15 @@
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "postinstall": "npm rebuild sharp --force"
+    "postinstall": "npm rebuild sharp --force || npm install --include=optional sharp --force"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18 <22"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.80.0",
     "cors": "^2.8.5",
