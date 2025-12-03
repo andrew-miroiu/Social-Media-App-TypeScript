@@ -19,11 +19,24 @@ function App() {
   const [profileUserId, setProfileUserId] = useState<string | null>(null)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user)
-      setLoading(false)
-    })
-  }, [])
+  const handleOAuthCallback = async () => {
+    if (window.location.hash.includes("access_token")) {
+      const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
+      if (!error) {
+        window.history.replaceState({}, "", window.location.pathname);
+      }
+    }
+  };
+
+  const loadUser = async () => {
+    await handleOAuthCallback();
+    const { data } = await supabase.auth.getUser();
+    setUser(data.user);
+    setLoading(false);
+  };
+
+  loadUser();
+}, []);
 
 
   if (loading) return <p>Loading...</p>
