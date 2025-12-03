@@ -36,6 +36,25 @@ A full-stack social media application built from scratch using modern web techno
 
 ---
 
+## 📸 Screenshots
+
+A visual preview of the Social Media App features:
+
+| Home Feed | Profile Page |
+|----------|--------------|
+| ![Home Feed](https://dpwepivngodkqrzyolvl.supabase.co/storage/v1/object/public/socialMediaApp/screenshots/Screenshot%202025-12-03%20at%2008.44.21.png) | ![Profile](https://dpwepivngodkqrzyolvl.supabase.co/storage/v1/object/public/socialMediaApp/screenshots/Screenshot%202025-12-03%20at%2008.46.58.png) |
+
+| Messages / Chat | Search Users |
+|----------------|--------------|
+| ![Messages](https://dpwepivngodkqrzyolvl.supabase.co/storage/v1/object/public/socialMediaApp/screenshots/Screenshot%202025-12-03%20at%2008.46.36.png) | ![Search](https://dpwepivngodkqrzyolvl.supabase.co/storage/v1/object/public/socialMediaApp/screenshots/Screenshot%202025-12-03%20at%2008.46.44.png) |
+
+| Login Page |
+|------------|
+| ![Login](https://dpwepivngodkqrzyolvl.supabase.co/storage/v1/object/public/socialMediaApp/screenshots/Screenshot%202025-12-03%20at%2008.50.19.png) |
+
+---
+
+
 ## 🛠️ Tech Stack
 
 ### Frontend
