@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 export default function Navbar({ onPageChange, userId , handleLogout}: { onPageChange: (page: string, userId?: string) => void; userId: string; handleLogout?: () => void}) {
   const [isOpen, setIsOpen] = useState(false);
