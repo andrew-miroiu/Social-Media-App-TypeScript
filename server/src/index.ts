@@ -14,7 +14,10 @@ import messagesRouter from './routes/messagesRouter'
 
 const app = express()
 app.use(cors({
-  origin: "*", // sau Netlify URL
+  origin: [
+    "http://localhost:3000",
+    "https://onlyfriends69.netlify.app"
+  ],
   credentials: true
 }));
 app.use(express.json())
