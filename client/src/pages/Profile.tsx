@@ -100,7 +100,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
 
   </div>
       {currentUser === userId && (
-        <form className="mt-3 flex items-center" onSubmit={handleAvatarSubmit}>
+        <form className="mt-3 flex flex-col sm:flex-row gap-2 items-start sm:items-center" onSubmit={handleAvatarSubmit}>
          <input 
             type="file"
             accept="image/*"
