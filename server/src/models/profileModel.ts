@@ -7,7 +7,7 @@ const supabase = createClient(
 
 export async function getUserProfileFromDB(userId: string) {
   const { data: usersData } = await supabase.auth.admin.listUsers();
-    const user = usersData?.users.find((u) => u.id === userId);
+    const user = usersData?.users.find((u: any) => u.id === userId);
     if (!user) throw new Error("User not found");
 
     const { data: followers, error } = await supabase
