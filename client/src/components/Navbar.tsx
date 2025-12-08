@@ -21,7 +21,7 @@ export default function Navbar({
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/" className="text-3xl font-bold text-blue-400">
-            <img src="/onlyfriends-logo.svg" alt="OnlyFriends" className="h-10" />
+            <img src="../../public/onlyfriends-logo.svg" alt="OnlyFriends" className="h-10" />
           </Link>
         </div>
 
