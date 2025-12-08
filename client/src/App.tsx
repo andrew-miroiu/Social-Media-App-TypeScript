@@ -67,7 +67,7 @@ function handleLogout() {
       <Navbar handleLogout={handleLogout} userId={user.id} />
 
       <Routes>
-        <Route path="/feed" element={<Feed currentUserId={user.id} />} />
+        <Route path="/" element={<Feed currentUserId={user.id} />} />
         <Route path="/messages" element={<Messages currentUserId={user.id} />} />
         <Route path="/search" element={<Search currentUserId={user.id} />} />
         <Route path="/profile/:id" element={<Profile currentUser={user.id} />} />

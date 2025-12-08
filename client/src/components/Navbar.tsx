@@ -25,7 +25,7 @@ export default function Navbar({
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-4 items-center">
-          <Link to="/feed" className="px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Feed</Link>
+          <Link to="/" className="px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Feed</Link>
           <Link to="/messages" className="px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Messages</Link>
           <Link to="/search" className="px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Search</Link>
           <Link to={`/profile/${userId}`} className="px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Profile</Link>
@@ -53,7 +53,7 @@ export default function Navbar({
       {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden bg-slate-800 px-8 py-4 space-y-2">
-          <Link to="/feed" onClick={() => setIsOpen(false)} className="block px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Feed</Link>
+          <Link to="/" onClick={() => setIsOpen(false)} className="block px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Feed</Link>
           <Link to="/messages" onClick={() => setIsOpen(false)} className="block px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Messages</Link>
           <Link to="/search" onClick={() => setIsOpen(false)} className="block px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Search</Link>
           <Link to={`/profile/${userId}`} onClick={() => setIsOpen(false)} className="block px-4 py-2 hover:bg-blue-600 rounded transition duration-200">Profile</Link>
