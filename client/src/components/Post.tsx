@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import CommentForm from "./CommentForm"
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { API_BASE_URL } from "../lib/apiConfig";
+import { useNavigate } from "react-router-dom"; 
 
 
 interface Comments {
@@ -13,7 +14,7 @@ interface Comments {
   username: string;
 }
 
-export default function Post({post_id, username, user_id, content, image_url, video_url, currentUserId, onOpenProfile}: {post_id: string; username: string; user_id: string; content: string; image_url?: string; video_url?: string; currentUserId : string; onOpenProfile: (page: string, userId: string) => void;}) {
+export default function Post({post_id, username, user_id, content, image_url, video_url, currentUserId}: {post_id: string; username: string; user_id: string; content: string; image_url?: string; video_url?: string; currentUserId : string; onOpenProfile: (userId: string) => void;}) {
   
   const [numberOfLikes, setNumberOfLikes] = useState<number>(0)
   const [liked, setLiked] = useState<boolean>(false)
@@ -74,6 +75,12 @@ export default function Post({post_id, username, user_id, content, image_url, vi
       setOpenedCommentSection("none")
     }
   }
+
+  const navigate = useNavigate();
+
+  const openProfile = () => {
+    navigate(`/profile/${user_id}`);
+  };
   
   return (
     <div className="post bg-white shadow-md rounded-xl p-4 sm:p-6 mb-6 w-full">
@@ -96,7 +103,7 @@ export default function Post({post_id, username, user_id, content, image_url, vi
         )}
 
         <h3
-          onClick={() => onOpenProfile("profile", user_id)}
+          onClick={openProfile}
           className="post-author font-semibold text-sm sm:text-base text-indigo-600 cursor-pointer mt-1.5"
         >
           {username}

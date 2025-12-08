@@ -1,11 +1,10 @@
 import  { useEffect, useState } from "react";
 import { API_BASE_URL } from "../lib/apiConfig";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useParams, useNavigate } from "react-router-dom";
 
 
 interface ProfileProps {
-  userId?: string | null;
-  onOpenProfile: (page: string, userId: string) => void;
   currentUser: string;
 }
 
@@ -29,28 +28,30 @@ interface ProfilePosts{
   currentUserId: string;
 }
 
-export default function Profile({ userId, onOpenProfile, currentUser }: ProfileProps) {
+export default function Profile({ currentUser }: ProfileProps) {
   const [loadedUser, setLoadedUser] = useState<LoadedUser | null>(null);
   const [profilePosts, setProfilePosts] = useState<ProfilePosts[]>([]);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { id } = useParams(); // user id din URL
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadProfile() {
-      if (!userId) return;
+      if (!id) return;
 
-      const res = await fetch(`${API_BASE_URL}/profile/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/profile/${id}`);
       const data = await res.json();
       setLoadedUser(data.profile);
 
-      const resPosts = await fetch(`${API_BASE_URL}/posts/user/${userId}`);
+      const resPosts = await fetch(`${API_BASE_URL}/posts/user/${id}`);
       const dataPosts = await resPosts.json();
       console.log(dataPosts.posts);
       setProfilePosts(dataPosts.posts);
     }
     loadProfile();
-  }, [userId]);
+  }, [id]);
 
   async function handleAvatarSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -103,7 +104,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
     </div>
 
   </div>
-      {currentUser === userId && (
+      {currentUser === id && (
         <form
           className="mt-3 flex flex-col sm:flex-row gap-2 items-start sm:items-center"
           onSubmit={handleAvatarSubmit}
@@ -158,7 +159,7 @@ export default function Profile({ userId, onOpenProfile, currentUser }: ProfileP
       {profilePosts.map((post, index) => (
         <div
           key={index}
-          onClick={() => onOpenProfile("profilePost", post.id)}
+          onClick={() => navigate(`/post/${post.id}`)}
           className="w-full aspect-[3/4] bg-black overflow-hidden rounded-md cursor-pointer"
         >
           {post.image_url && (

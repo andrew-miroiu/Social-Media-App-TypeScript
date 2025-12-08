@@ -8,6 +8,7 @@ import Messages from "./pages/Messages"
 import Search from "./pages/Search"
 import Profile from "./pages/Profile"
 import type { User } from "@supabase/supabase-js"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //import Feed from "./pages/Feed"
 
@@ -15,8 +16,8 @@ function App() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [login, setLogin] = useState(true)
-  const [page, setPage] = useState("feed")
-  const [profileUserId, setProfileUserId] = useState<string | null>(null)
+  //const [page, setPage] = useState("feed")
+  //const [profileUserId, setProfileUserId] = useState<string | null>(null)
 
   useEffect(() => {
   const handleOAuthCallback = async () => {
@@ -46,13 +47,13 @@ function App() {
 
 )
 
-function handlePageChange(page: string, userId?: string | null) {
+/*function handlePageChange(page: string, userId?: string | null) {
   if (page === "profile" && userId) {
     setProfileUserId(userId);
     console.log("if:" + profileUserId);
     }
   setPage(page);
-}
+}*/
 
 function handleLogout() {
   supabase.auth.signOut().then(() => {
@@ -62,15 +63,16 @@ function handleLogout() {
 
   //return <Feed />
   return (
-    <div >
-      <Navbar onPageChange={handlePageChange} handleLogout = {handleLogout} userId={user.id}/>
+    <BrowserRouter>
+      <Navbar handleLogout={handleLogout} userId={user.id} />
 
-      {page === "feed" && <Feed onOpenProfile={handlePageChange} currentUserId={user.id}/>}
-      {page === "messages" && <Messages currentUserId = {user.id}/>}
-      {page === "search" && <Search currentUserId={user.id} onOpenProfile={handlePageChange}/>}
-      {page === "profile" && <Profile userId={profileUserId} onOpenProfile={handlePageChange} currentUser={user.id}/> }
-
-    </div>
+      <Routes>
+        <Route path="/feed" element={<Feed currentUserId={user.id} />} />
+        <Route path="/messages" element={<Messages currentUserId={user.id} />} />
+        <Route path="/search" element={<Search currentUserId={user.id} />} />
+        <Route path="/profile/:id" element={<Profile currentUser={user.id} />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

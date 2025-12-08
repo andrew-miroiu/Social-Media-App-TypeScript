@@ -2,8 +2,10 @@ import React from "react";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 import { API_BASE_URL } from "../lib/apiConfig";
+import { useNavigate } from "react-router-dom";
 
-export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (page: string, userId: string) => void; currentUserId: string;}) {
+
+export default function Feed({ currentUserId } : {currentUserId: string;}) {
 
     const [posts, setPosts] = React.useState<Array<{id: string; username: string; user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
 
@@ -18,6 +20,12 @@ export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (p
             })
             .catch((err) => console.error("Error fetching posts:", err));
     }, []);
+
+    const navigate = useNavigate();
+
+    const openProfile = (userId: string) => {
+      navigate(`/profile/${userId}`);
+    };
 
 
   return (
@@ -35,7 +43,7 @@ export default function Feed({onOpenProfile, currentUserId} : {onOpenProfile: (p
           image_url={post.image_url}
           video_url={post.video_url}
           currentUserId={currentUserId}
-          onOpenProfile={onOpenProfile}
+          onOpenProfile={openProfile}
         />
       ))}
 
