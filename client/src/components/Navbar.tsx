@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
+
 
 export default function Navbar({
   userId,
@@ -21,7 +23,7 @@ export default function Navbar({
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/" className="text-3xl font-bold text-blue-400">
-            <img src="../../public/onlyfriends-logo.svg" alt="OnlyFriends" className="h-10" />
+            <img src={logo} alt="OnlyFriends" className="h-10" />
           </Link>
         </div>
 
