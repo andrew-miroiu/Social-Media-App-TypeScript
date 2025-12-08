@@ -1,0 +1,12 @@
+<svg width="220" height="50" viewBox="0 0 220 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon -->
+  <rect x="2" y="5" width="40" height="40" rx="12" fill="#0F172A"></rect>
+  <path d="M11 18C11 15.7909 12.7909 14 15 14H25C27.2091 14 29 15.7909 29 18V23C29 25.2091 27.2091 27 25 27H18L14 31V27H15C12.7909 27 11 25.2091 11 23V18Z" fill="#1D4ED8"></path>
+  <path d="M20 20.2C19.6 19.7 18.95 19.3 18.25 19.3C16.95 19.3 16 20.35 16 21.55C16 22.8 16.9 23.8 18.2 24.9C18.75 25.35 19.35 25.8 20 26.3C20.65 25.8 21.25 25.35 21.8 24.9C23.1 23.8 24 22.8 24 21.55C24 20.35 23.05 19.3 21.75 19.3C21.05 19.3 20.4 19.7 20 20.2Z" fill="#F97373"></path>
+
+  <!-- Text -->
+  <text x="52" y="32" fill="#E5E7EB" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700">
+    Only
+    <tspan fill="#38BDF8">Friends</tspan>
+  </text>
+</svg>
