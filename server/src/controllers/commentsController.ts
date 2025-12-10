@@ -32,3 +32,19 @@ export async function getComments(req: Request, res: Response){
         res.status(500).json({ error: error?.message ?? String(error) });
     }
 }
+
+export async function getNumberOfComments(req: Request, res: Response){
+    try{
+        const post_id= req.params.post_id;
+
+        if(!post_id){
+            return res.status(400).json({error: "missing post_id"});
+        }
+
+        const comments = await getCommentsDb(post_id);
+        const numberOfComments = comments.length
+        res.status(201).json({success: true, numberOfComments: numberOfComments});
+    } catch (error : any){
+        res.status(500).json({ error: error?.message ?? String(error) });
+    }
+}

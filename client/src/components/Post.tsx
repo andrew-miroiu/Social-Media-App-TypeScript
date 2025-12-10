@@ -30,6 +30,10 @@ export default function Post({post_id, username, user_id, content, image_url, vi
     const data = await res.json();
     setNumberOfLikes(data.numberOflikes);
 
+    const resNumberOfComments = await fetch(`${API_BASE_URL}/comments/numberOfComments/${post_id}`);
+    const dataNumberOfComments = await resNumberOfComments.json();
+    setNumberOfComments(dataNumberOfComments.numberOfComments);
+
     if(!currentUserId) return;
 
     const result = await fetch(`${API_BASE_URL}/like/userLiked/${post_id}/${currentUserId}`);
