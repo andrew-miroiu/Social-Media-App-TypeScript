@@ -40,6 +40,7 @@ export default function Profile({ currentUser }: ProfileProps) {
 
   useEffect(() => {
     async function loadProfile() {
+      await setLoadedUser(null);
 
       if (!id) return;
 
