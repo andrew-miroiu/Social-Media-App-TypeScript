@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import { API_BASE_URL } from "../lib/apiConfig";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useParams, useNavigate } from "react-router-dom";
+import ProfileSkeleton from "../components/skeletons/profileSkeleton";
 
 
 interface ProfileProps {
@@ -39,6 +40,7 @@ export default function Profile({ currentUser }: ProfileProps) {
 
   useEffect(() => {
     async function loadProfile() {
+
       if (!id) return;
 
       const res = await fetch(`${API_BASE_URL}/profile/${id}`);
@@ -74,7 +76,7 @@ export default function Profile({ currentUser }: ProfileProps) {
   }
   
 
-  if (!loadedUser || !profilePosts) return <p className="loading flex justify-center align-center mt-10">Loading profile...</p>;
+  if (!loadedUser || !profilePosts) return <ProfileSkeleton />;
   
   return (
   <div className="profile-page w-full max-w-xl mx-auto p-4 overflow-x-hidden">
