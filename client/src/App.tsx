@@ -70,7 +70,7 @@ function handleLogout() {
         <Route path="/" element={<Feed currentUserId={user.id} />} />
         <Route path="/messages" element={<Messages currentUserId={user.id} />} />
         <Route path="/search" element={<Search currentUserId={user.id} />} />
-        <Route path="/profile/:id" element={<Profile currentUser={user.id} />} />
+        <Route path="/profile/:id" element={<Profile key={user.id} currentUser={user.id} />} />
       </Routes>
     </BrowserRouter>
   )
