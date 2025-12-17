@@ -34,16 +34,16 @@ export default function Profile({ currentUser }: ProfileProps) {
   const [profilePosts, setProfilePosts] = useState<ProfilePosts[]>([]);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { id } = useParams(); // user id din URL
   const navigate = useNavigate();
 
   useEffect(() => {
     async function loadProfile() {
-      await setLoadedUser(null);
 
       if (!id) return;
-
+      setLoading(true);
       const res = await fetch(`${API_BASE_URL}/profile/${id}`);
       const data = await res.json();
       setLoadedUser(data.profile);
@@ -52,6 +52,7 @@ export default function Profile({ currentUser }: ProfileProps) {
       const dataPosts = await resPosts.json();
       console.log(dataPosts.posts);
       setProfilePosts(dataPosts.posts);
+      setLoading(false);
     }
     loadProfile();
   }, [id]);
@@ -77,7 +78,10 @@ export default function Profile({ currentUser }: ProfileProps) {
   }
   
 
-  if (!loadedUser || !profilePosts) return <ProfileSkeleton />;
+  if (loading || !loadedUser) {
+    return <ProfileSkeleton />;
+  }
+
   
   return (
   <div className="profile-page w-full max-w-xl mx-auto p-4 overflow-x-hidden">
