@@ -3,11 +3,13 @@ import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 import { API_BASE_URL } from "../lib/apiConfig";
 import { useNavigate } from "react-router-dom";
+import FeedSkeleton from "../components/skeletons/FeedSkeleton";
 
 
 export default function Feed({ currentUserId } : {currentUserId: string;}) {
 
     const [posts, setPosts] = React.useState<Array<{id: string; username: string; user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         // Fetch posts from the backend
@@ -18,6 +20,7 @@ export default function Feed({ currentUserId } : {currentUserId: string;}) {
                     setPosts(data.posts);
                 }
             })
+            .finally(() => setLoading(false))
             .catch((err) => console.error("Error fetching posts:", err));
     }, []);
 
@@ -27,6 +30,9 @@ export default function Feed({ currentUserId } : {currentUserId: string;}) {
       navigate(`/profile/${userId}`);
     };
 
+    if (loading) {
+      return <FeedSkeleton />;
+    }
 
   return (
      <div className="flex justify-center w-full">
