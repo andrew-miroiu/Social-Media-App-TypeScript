@@ -84,7 +84,7 @@ export default function Profile({ currentUser }: ProfileProps) {
 
   
   return (
-  <div className="profile-page w-full max-w-xl mx-auto p-4 overflow-x-hidden">
+  <div key={loadedUser.id} className="profile-page w-full max-w-xl mx-auto p-4 overflow-x-hidden">
 
 
   <div className="profile-header bg-white shadow-md rounded-xl p-5 mb-6">
