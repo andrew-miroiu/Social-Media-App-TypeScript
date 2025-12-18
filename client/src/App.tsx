@@ -9,7 +9,7 @@ import Search from "./pages/Search"
 import Profile from "./pages/Profile"
 import type { User } from "@supabase/supabase-js"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Snowfall from "react-snowfall"
+//import Snowfall from "react-snowfall"
 
 //import Feed from "./pages/Feed"
 
@@ -65,17 +65,7 @@ function handleLogout() {
   //return <Feed />
   return (
     <BrowserRouter>
-      <Snowfall
-        color="red"
-        style={{
-          position: "fixed",
-          width: "100vw",
-          height: "100vh",
-          zIndex: 9999,
-          pointerEvents: "none",
-          background: "rgba(255,0,0,0.05)"
-        }}
-      />
+      
       <Navbar handleLogout={handleLogout} userId={user.id} />
 
       <Routes>
