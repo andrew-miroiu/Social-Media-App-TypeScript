@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import FeedSkeleton from "../components/skeletons/FeedSkeleton";
 
 
+
 export default function Feed({ currentUserId } : {currentUserId: string;}) {
 
     const [posts, setPosts] = React.useState<Array<{id: string; username: string; user_id: string; text: string; image_url?: string; video_url?: string}>>([]);
