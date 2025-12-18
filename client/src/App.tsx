@@ -42,7 +42,7 @@ function App() {
     if (user) {
       const snowflakes = new Snowflakes({
         color: '#82C3D9',
-        count: 50,
+        count: 120,
         minSize: 8,
         maxSize: 18,
         speed: 1,
