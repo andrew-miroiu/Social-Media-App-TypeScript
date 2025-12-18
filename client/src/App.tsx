@@ -65,7 +65,17 @@ function handleLogout() {
   //return <Feed />
   return (
     <BrowserRouter>
-      <Snowfall color="#82C3D9"/>
+      <Snowfall
+        color="red"
+        style={{
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+          zIndex: 9999,
+          pointerEvents: "none",
+          background: "rgba(255,0,0,0.05)"
+        }}
+      />
       <Navbar handleLogout={handleLogout} userId={user.id} />
 
       <Routes>
