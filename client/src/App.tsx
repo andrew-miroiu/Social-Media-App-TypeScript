@@ -9,7 +9,6 @@ import Search from "./pages/Search"
 import Profile from "./pages/Profile"
 import type { User } from "@supabase/supabase-js"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Snowflakes from 'magic-snowflakes'
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
@@ -36,26 +35,6 @@ function App() {
 
     loadUser()
   }, [])
-
-  // Add snowflakes when user is logged in
-  useEffect(() => {
-    if (user) {
-      const snowflakes = new Snowflakes({
-        color: '#82C3D9',
-        count: 120,
-        minSize: 8,
-        maxSize: 18,
-        speed: 1,
-        wind: true,
-        rotation: true,
-        zIndex: 9999
-      })
-
-      return () => {
-        snowflakes.destroy()
-      }
-    }
-  }, [user])
 
   if (loading) return <p>Loading...</p>
   if (!user) return (
